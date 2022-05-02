@@ -5,6 +5,10 @@ import java.util.Random;
 public class RandomGenerator {
     private static final Random random = new Random();
 
+    public static void setSeed(long seed) {
+        random.setSeed(seed);
+    }
+
     public static String getRandomString(int length) {
         char[] chars = new char[length];
         for (int i = 0; i < length; i++) chars[i] = getRandomChar();

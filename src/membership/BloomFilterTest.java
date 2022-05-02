@@ -36,7 +36,6 @@ class BloomFilterTest {
     void testParameterChoosing(int n, double errorRate, int tests) {
         BloomFilter bf = new BloomFilter(n, errorRate);
         testFilter(bf, n, tests, errorRate * 1.1);
-
     }
 
     private static void testFilter(BloomFilter bf, int n, int tests, double errorRateMax) {

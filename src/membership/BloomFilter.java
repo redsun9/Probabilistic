@@ -5,6 +5,8 @@ import hash.MurmurHash3;
 import java.nio.charset.StandardCharsets;
 import java.util.BitSet;
 
+import static utils.IntegerUtils.nextPow2;
+
 public class BloomFilter {
     private static final int MAX_SIZE = 1 << 30;
     private static final int MAX_HASH_FUNCTIONS = 32;
@@ -33,15 +35,17 @@ public class BloomFilter {
         this.nbHash = nbHash;
     }
 
-    public void add(String s) {
-        byte[] bytes = s.getBytes(StandardCharsets.UTF_8);
+    public void add(String key) {
+        if (key == null) throw new IllegalArgumentException("key cannot be null");
+        byte[] bytes = key.getBytes(StandardCharsets.UTF_8);
         for (int i = 0; i < nbHash; i++) {
             bits.set(hash(bytes, i));
         }
     }
 
-    public boolean contains(String s) {
-        byte[] bytes = s.getBytes(StandardCharsets.UTF_8);
+    public boolean contains(String key) {
+        if (key == null) throw new IllegalArgumentException("key cannot be null");
+        byte[] bytes = key.getBytes(StandardCharsets.UTF_8);
         for (int i = 0; i < nbHash; i++) {
             if (!bits.get(hash(bytes, i))) {
                 return false;
@@ -55,8 +59,5 @@ public class BloomFilter {
         return hash & mask;
     }
 
-    private static int nextPow2(int n) {
-        if ((n & (n - 1)) == 0) return n;
-        else return Integer.highestOneBit(n) << 1;
-    }
+
 }

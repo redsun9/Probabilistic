@@ -12,26 +12,12 @@ public class XorShiftN {
     };
 
     private int a;
-    private final int mask;
-    private final int s1;
-    private final int s2;
-    private final int s3;
-
-    XorShiftN(int a, int bits, int s1, int s2, int s3) {
-        if (bits < 4 || bits > 31) throw new IllegalArgumentException();
-        this.mask = (1 << bits) - 1;
-        this.a = a & mask;
-        if (this.a == 0) throw new IllegalArgumentException();
-        this.s1 = s1;
-        this.s2 = s2;
-        this.s3 = s3;
-    }
+    private final int mask, s1, s2, s3;
 
     public XorShiftN(int a, int bits) {
         if (bits < 4 || bits > 31) throw new IllegalArgumentException();
         this.mask = (1 << bits) - 1;
-        this.a = a & mask;
-        if (this.a == 0) throw new IllegalArgumentException();
+        setSeed(a);
         this.s1 = s[bits - 4][1];
         this.s2 = s[bits - 4][2];
         this.s3 = s[bits - 4][3];
@@ -42,5 +28,11 @@ public class XorShiftN {
         a ^= a >> s2;
         a ^= a << s3;
         return a &= mask;
+    }
+
+    public void setSeed(int seed) {
+        seed &= mask;
+        if (seed == 0) throw new IllegalArgumentException();
+        this.a = seed;
     }
 }

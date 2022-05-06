@@ -5,8 +5,7 @@ public class XorShift32 {
     private int a;
 
     public XorShift32(int a) {
-        if (a == 0) throw new IllegalArgumentException();
-        this.a = a;
+        setSeed(a);
     }
 
     public int nextInteger() {
@@ -14,5 +13,10 @@ public class XorShift32 {
         a ^= a >>> 17;
         a ^= a << 5;
         return a;
+    }
+
+    public void setSeed(int a) {
+        if (a == 0) throw new IllegalArgumentException();
+        this.a = a;
     }
 }

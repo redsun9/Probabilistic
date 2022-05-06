@@ -5,9 +5,7 @@ public class XorShiftPlus {
     private long a, b;
 
     public XorShiftPlus(long a, long b) {
-        if ((a | b) == 0) throw new IllegalArgumentException();
-        this.a = a;
-        this.b = b;
+        setSeed(a, b);
     }
 
     public long nextLong() {
@@ -18,5 +16,11 @@ public class XorShiftPlus {
         t ^= a ^ (a >> 26);
         b = t;
         return t + a;
+    }
+
+    public void setSeed(long a, long b) {
+        if ((a | b) == 0) throw new IllegalArgumentException();
+        this.a = a;
+        this.b = b;
     }
 }

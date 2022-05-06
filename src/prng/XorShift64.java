@@ -5,8 +5,7 @@ public class XorShift64 {
     private long a;
 
     public XorShift64(long a) {
-        if (a == 0) throw new IllegalArgumentException();
-        this.a = a;
+        setSeed(a);
     }
 
     public long nextLong() {
@@ -14,5 +13,10 @@ public class XorShift64 {
         a ^= a >>> 7;
         a ^= a << 17;
         return a;
+    }
+
+    public void setSeed(long a) {
+        if (a == 0) throw new IllegalArgumentException();
+        this.a = a;
     }
 }

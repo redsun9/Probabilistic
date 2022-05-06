@@ -5,11 +5,7 @@ public class XorShift128 {
     private int a, b, c, d, t;
 
     public XorShift128(int a, int b, int c, int d) {
-        if ((a | b | c | d) == 0) throw new IllegalArgumentException();
-        this.a = a;
-        this.b = b;
-        this.c = c;
-        this.d = d;
+        setSeed(a, b, c, d);
     }
 
     public int nextInt() {
@@ -21,5 +17,14 @@ public class XorShift128 {
         t ^= t >>> 8;
         a = t ^ a ^ (a >>> 19);
         return a;
+    }
+
+    public void setSeed(int a, int b, int c, int d) {
+        if ((a | b | c | d) == 0) throw new IllegalArgumentException();
+        this.a = a;
+        this.b = b;
+        this.c = c;
+        this.d = d;
+        t = 0;
     }
 }

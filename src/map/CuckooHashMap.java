@@ -9,7 +9,7 @@ import java.util.*;
 public class CuckooHashMap<K, V> implements Map<K, V> {
     private static final int MAX_CAPACITY = 1 << 30;
     private static final int DEFAULT_CAPACITY = 1 << 4; // 16
-    private static final double MAX_LOOP = 10;
+    private static final int MAX_LOOP = 10;
     private int mask, size, capacity, modCount, seed1, seed2;
     private Node<K, V>[] table1, table2;
     private Set<K> keySet;

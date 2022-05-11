@@ -71,6 +71,10 @@ public final class MurmurHash3 {
         return hash32xArray(data, 0, data.length, seed);
     }
 
+    public static int hash32xArray(final byte[] data, final int offset, final int length) {
+        return hash32xArray(data, offset, length, DEFAULT_SEED);
+    }
+
     public static int hash32xArray(final byte[] data, final int offset, final int length, final int seed) {
         int hash = seed;
         final int nblocks = length >> 2;
@@ -109,9 +113,14 @@ public final class MurmurHash3 {
         return hash128xArray(data, 0, data.length, DEFAULT_SEED);
     }
 
-    public static long[] hash128xArray(final byte[] data, final int offset, final int length, final int seed) {
+    public static long[] hash128xArray(final byte[] data, final int offset, final int length) {
         // Use an unsigned 32-bit integer as the seed
-        return hash128x64Internal(data, offset, length, seed & 0xffffffffL);
+        return hash128xArray(data, offset, length, DEFAULT_SEED & 0xffffffffL);
+    }
+
+    public static long[] hash128xArray(final byte[] data, final int offset, final int length, final long seed) {
+        // Use an unsigned 32-bit integer as the seed
+        return hash128x64Internal(data, offset, length, seed);
     }
 
     private static long[] hash128x64Internal(final byte[] data, final int offset, final int length, final long seed) {
